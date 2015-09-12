@@ -49,4 +49,13 @@
         android:checked="false"
         android:layout_alignEnd="@+id/sw_flash" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/tv_factor"
+        android:layout_below="@+id/textViewProgress"
+        android:layout_alignEnd="@+id/view_canvas" />
+
 </RelativeLayout>

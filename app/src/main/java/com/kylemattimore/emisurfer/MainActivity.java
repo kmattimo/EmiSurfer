@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,9 +16,15 @@ import android.widget.TextView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends Activity {
     KylesView view;
     SeekBar bar;
+    TextView tv_factor;
+
     double barMultiplier;
 
     @Override
@@ -26,6 +33,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         view = (KylesView) findViewById(R.id.view_canvas);
+
+        tv_factor = (TextView) findViewById(R.id.tv_factor);
 
         // make text label for progress value
         final TextView textProgress = (TextView)findViewById(R.id.textViewProgress);
@@ -42,18 +51,20 @@ public class MainActivity extends Activity {
                 view.setMultiplier((float) progress);
                 textProgress.setText(String.valueOf(progress));
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
             }
-
         });
 
-        }
+        new PrimeFactorsTask().execute(new BigInteger("32452843"));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,6 +86,32 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class PrimeFactorsTask extends AsyncTask<BigInteger, Void, BigInteger> {
+        @Override
+        protected BigInteger doInBackground(BigInteger... params) {
+            List<BigInteger> list = primeFactors(params[0]);
+            return list.get(list.size()-1);
+        }
+
+        public List<BigInteger> primeFactors(BigInteger number) {
+            BigInteger n = number;
+            List<BigInteger> factors = new ArrayList<BigInteger>();
+            for (BigInteger i = BigInteger.valueOf(2); i.compareTo(n) <= 0; i = i.add(BigInteger.ONE)) {
+                while (n.remainder(i).equals(BigInteger.ZERO)) {
+                    factors.add(i);
+                    n = n.divide(i);
+                }
+            }
+            return factors;
+        }
+
+        @Override
+        protected void onPostExecute(BigInteger integer) {
+            tv_factor.setText(integer.toString());
+            tv_factor.invalidate();
+        }
     }
 }
 
