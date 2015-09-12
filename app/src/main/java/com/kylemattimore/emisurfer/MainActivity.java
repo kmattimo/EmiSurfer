@@ -63,7 +63,9 @@ public class MainActivity extends Activity {
             }
         });
 
-        new PrimeFactorsTask().execute(new BigInteger("32452843"));
+        for (int i = 0; i < 4; ++i) {
+            new PrimeFactorsTask().execute(new BigInteger("32452843"));
+        }
     }
 
     @Override
