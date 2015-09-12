@@ -1,7 +1,9 @@
 # EmiSurfer
--Kyle Mattimore, Nate Jones, University of Michigan
+Kyle Mattimore and Nate Jones
 
-Mhacks 6
+####University of Michigan
+
+#####Mhacks 6
 
 ##Create ambient soundscapes with an electric guitar and electromagnetic interference from a smartphone
 
