@@ -8,38 +8,42 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.SeekBar;
 
 /**
  * Created by cours on 9/12/2015.
  */
 public class KylesView extends View {
+    private Paint strokePaint = new Paint();
+    private Paint bgPaint = new Paint();
+    private Path path = new Path();
 
-    SeekBar bar;
+    Double multiplier = 1.0;
 
     public KylesView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        paint.setAntiAlias(true);
-        paint.setStrokeWidth(6f);
-        paint.setColor(Color.BLACK);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeJoin(Paint.Join.ROUND);
-        bar = (SeekBar)findViewById(R.id.seekBar1);
-    }
+        strokePaint.setAntiAlias(true);
+        strokePaint.setStrokeWidth(6f);
+        strokePaint.setColor(Color.BLACK);
+        strokePaint.setStyle(Paint.Style.STROKE);
+        strokePaint.setStrokeJoin(Paint.Join.ROUND);
 
-    private Paint paint = new Paint();
-    private Path path = new Path();
+        bgPaint.setAntiAlias(true);
+        bgPaint.setColor(Color.CYAN);
+        bgPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
-
-        double multiplier = bar.getProgress();
-        canvas.drawRect(0.0f, 0.0f, 100.0f, 100.0f, paint);
-        canvas.drawPath(path, paint);
+        if (bgPaint.getColor() == Color.CYAN) {
+            bgPaint.setColor(Color.YELLOW);
+        } else {
+            bgPaint.setColor(Color.CYAN);
+        }
+        canvas.drawRect(0.0f, 0.0f, canvas.getWidth(), canvas.getHeight(), bgPaint);
+        canvas.drawPath(path, strokePaint);
         try {
-            Thread.sleep(10  * (long)multiplier);
+            Thread.sleep(2  * (long) multiplier.doubleValue());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -59,6 +63,7 @@ public class KylesView extends View {
                     break;
                 case MotionEvent.ACTION_UP:
                     // nothing to do
+                    path.reset();
                     break;
                 default:
                     return false;
@@ -68,5 +73,13 @@ public class KylesView extends View {
         // Schedules a repaint.
         invalidate();
         return true;
+    }
+
+    public void setMultiplier(float val) {
+        multiplier = (double) val;
+    }
+
+    public double getMultiplier() {
+        return multiplier;
     }
 }

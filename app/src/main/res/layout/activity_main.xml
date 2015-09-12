@@ -30,4 +30,23 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Epilepsy"
+        android:id="@+id/sw_flash"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:checked="false" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dots"
+        android:id="@+id/sw_dots"
+        android:layout_below="@+id/sw_flash"
+        android:layout_alignParentStart="true"
+        android:checked="false"
+        android:layout_alignEnd="@+id/sw_flash" />
+
 </RelativeLayout>

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/EmiSurfer.iml" filepath="$PROJECT_DIR$/EmiSurfer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EMISurfer.iml" filepath="$PROJECT_DIR$/EMISurfer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -16,8 +16,8 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class MainActivity extends Activity {
-    View view;
-    private SeekBar bar;
+    KylesView view;
+    SeekBar bar;
     double barMultiplier;
 
     @Override
@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        view = (View) findViewById(R.id.view_canvas);
+        view = (KylesView) findViewById(R.id.view_canvas);
 
         // make text label for progress value
         final TextView textProgress = (TextView)findViewById(R.id.textViewProgress);
@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
                                           boolean fromUser) {
                 // TODO Auto-generated method stub
                 barMultiplier = (float) progress;
+                view.setMultiplier((float) progress);
                 textProgress.setText(String.valueOf(progress));
             }
             @Override
