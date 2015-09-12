@@ -31,7 +31,7 @@ public class KylesView extends View {
         canvas.drawRect(0.0f, 0.0f, 100.0f, 100.0f, paint);
         canvas.drawPath(path, paint);
         try {
-            Thread.sleep(10);
+            Thread.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -39,21 +39,22 @@ public class KylesView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float eventX = event.getX();
-        float eventY = event.getY();
+        int pointerCount = event.getPointerCount();
+        for (int i = 0; i < pointerCount; i++) {
+            float eventX = event.getX(i);
+            float eventY = event.getY(i);
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                path.moveTo(eventX, eventY);
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                path.lineTo(eventX, eventY);
-                break;
-            case MotionEvent.ACTION_UP:
-                // nothing to do
-                break;
-            default:
-                return false;
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
+                    path.addCircle(eventX, eventY, 1.0f, Path.Direction.CW);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // nothing to do
+                    break;
+                default:
+                    return false;
+            }
         }
 
         // Schedules a repaint.
