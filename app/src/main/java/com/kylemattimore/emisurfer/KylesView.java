@@ -8,11 +8,15 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.SeekBar;
 
 /**
  * Created by cours on 9/12/2015.
  */
 public class KylesView extends View {
+
+    SeekBar bar;
+
     public KylesView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -21,6 +25,7 @@ public class KylesView extends View {
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
+        bar = (SeekBar)findViewById(R.id.seekBar1);
     }
 
     private Paint paint = new Paint();
@@ -28,10 +33,13 @@ public class KylesView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
+
+        double multiplier = bar.getProgress();
         canvas.drawRect(0.0f, 0.0f, 100.0f, 100.0f, paint);
         canvas.drawPath(path, paint);
         try {
-            Thread.sleep(10);
+            Thread.sleep(10  * (long)multiplier);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

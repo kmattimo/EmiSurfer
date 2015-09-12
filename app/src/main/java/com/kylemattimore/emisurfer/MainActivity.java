@@ -12,9 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class MainActivity extends Activity {
     View view;
+    private SeekBar bar;
+    double barMultiplier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,33 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         view = (View) findViewById(R.id.view_canvas);
-    }
+
+        // make text label for progress value
+        final TextView textProgress = (TextView)findViewById(R.id.textViewProgress);
+
+        bar = (SeekBar)findViewById(R.id.seekBar1); // make seekbar object
+
+        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+                                          boolean fromUser) {
+                // TODO Auto-generated method stub
+                barMultiplier = (float) progress;
+                textProgress.setText(String.valueOf(progress));
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+        });
+
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,3 +76,4 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
+
