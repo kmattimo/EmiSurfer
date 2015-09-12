@@ -20,6 +20,7 @@ public class KylesView extends View {
     Double multiplier = 1.0;
     boolean dotToggle = false;
     boolean flashToggle = false;
+    boolean secondColor = false;
 
     public KylesView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -93,6 +94,15 @@ public class KylesView extends View {
         flashToggle = checked;
     }
     public void flash(int barValue) {
+        if(secondColor) {
+            secondColor = false;
+            bgPaint.setColor(Color.BLACK);
+        }
+        else {
+            secondColor = true;
+            bgPaint.setColor(Color.GRAY);
+        }
+
         invalidate();
 
     }

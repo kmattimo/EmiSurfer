@@ -1,5 +1,6 @@
 package com.kylemattimore.emisurfer;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -33,10 +34,13 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         view = (KylesView) findViewById(R.id.view_canvas);
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
+
 
         tv_factor = (TextView) findViewById(R.id.tv_factor);
 
