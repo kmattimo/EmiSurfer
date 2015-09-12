@@ -1,5 +1,5 @@
-# EmiSurfer
-Kyle Mattimore and Nate Jones
+# EMISurfer
+###Kyle Mattimore and Nate Jones
 
 ####University of Michigan
 
