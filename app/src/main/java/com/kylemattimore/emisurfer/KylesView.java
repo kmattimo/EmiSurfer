@@ -18,6 +18,8 @@ public class KylesView extends View {
     private Path path = new Path();
 
     Double multiplier = 1.0;
+    boolean dotToggle = false;
+    boolean flashToggle = false;
 
     public KylesView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -35,15 +37,18 @@ public class KylesView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (bgPaint.getColor() == Color.CYAN) {
-            bgPaint.setColor(Color.YELLOW);
-        } else {
-            bgPaint.setColor(Color.CYAN);
+
+        if(flashToggle) {
+            if (bgPaint.getColor() == Color.CYAN) {
+                bgPaint.setColor(Color.YELLOW);
+            } else {
+                bgPaint.setColor(Color.CYAN);
+            }
         }
         canvas.drawRect(0.0f, 0.0f, canvas.getWidth(), canvas.getHeight(), bgPaint);
         canvas.drawPath(path, strokePaint);
         try {
-            Thread.sleep(2  * (long) multiplier.doubleValue());
+            Thread.sleep( (long) ( multiplier.doubleValue() /2 ) );
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -59,7 +64,9 @@ public class KylesView extends View {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                 case MotionEvent.ACTION_MOVE:
-                    path.addCircle(eventX, eventY, 1.0f, Path.Direction.CW);
+                    if(dotToggle) {
+                        path.addCircle(eventX, eventY, 1.0f, Path.Direction.CW);
+                    }
                     break;
                 case MotionEvent.ACTION_UP:
                     // nothing to do
@@ -77,6 +84,17 @@ public class KylesView extends View {
 
     public void setMultiplier(float val) {
         multiplier = (double) val;
+    }
+
+    public void setDotToggle(boolean checked) {
+        dotToggle = checked;
+    }
+    public void setFlashToggle(boolean checked) {
+        flashToggle = checked;
+    }
+    public void flash(int barValue) {
+        invalidate();
+
     }
 
     public double getMultiplier() {

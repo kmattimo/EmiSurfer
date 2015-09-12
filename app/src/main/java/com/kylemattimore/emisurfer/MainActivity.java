@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -22,10 +24,12 @@ import java.util.List;
 
 public class MainActivity extends Activity {
     KylesView view;
-    SeekBar bar;
+    SeekBar bar, autoFlashBar;
     TextView tv_factor;
+    Switch sw_dots,sw_flash;
 
     double barMultiplier;
+    boolean flashToggle, dotToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +40,31 @@ public class MainActivity extends Activity {
 
         tv_factor = (TextView) findViewById(R.id.tv_factor);
 
+        sw_dots = (Switch) findViewById(R.id.sw_dots);
+        sw_flash = (Switch) findViewById(R.id.sw_flash);
+
+
         // make text label for progress value
         final TextView textProgress = (TextView)findViewById(R.id.textViewProgress);
 
         bar = (SeekBar)findViewById(R.id.seekBar1); // make seekbar object
+        autoFlashBar = (SeekBar)findViewById(R.id.seekBarAutoFlash); // make seekbar object
+
+        sw_dots.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                view.setDotToggle(isChecked);
+            }
+        });
+
+        sw_flash.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                view.setFlashToggle(isChecked);
+            }
+        });
 
         bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -50,6 +75,27 @@ public class MainActivity extends Activity {
                 barMultiplier = (float) progress;
                 view.setMultiplier((float) progress);
                 textProgress.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+            autoFlashBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+                                          boolean fromUser) {
+                // TODO Auto-generated method stub
+                int barValue =  progress;
+                view.flash(barValue);
             }
 
             @Override
