@@ -14,39 +14,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
-
-    BluetoothAdapter mBluetoothAdapter;
-
-    TextView tv_bt_scan;
-    Button button_bt_scan;
+    View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        // Maybe check if dev supports bluetooth?
-
-        // Get UI elements
-        button_bt_scan = (Button) findViewById(R.id.button_bt_search);
-        tv_bt_scan = (TextView) findViewById(R.id.tv_bt_scan);
-
-        // Bluetooth Intent receiver
-        IntentFilter bt_filter = new IntentFilter();
-
-        bt_filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
-        bt_filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-
-        registerReceiver(btIntentReciever, bt_filter);
-
-        // Set button listeners
-        button_bt_scan.setOnClickListener (new View.OnClickListener() {
-            public void onClick(View v) {
-                // Do stuff here
-                mBluetoothAdapter.startDiscovery();
-            }
-        });
+        view = (View) findViewById(R.id.view_canvas);
     }
 
     @Override
@@ -70,18 +45,4 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private final BroadcastReceiver btIntentReciever = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-
-            if(BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
-                tv_bt_scan.setText("YES");
-            }
-            else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                tv_bt_scan.setText("NOPE");
-            }
-        }
-    };
 }
