@@ -70,10 +70,12 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
+        android:text="Spawn"
+        android:id="@+id/spawnWorker"
         android:layout_below="@+id/seekBar1"
-        android:layout_alignEnd="@+id/view_canvas" />
+        android:layout_alignEnd="@+id/view_canvas"
+        android:onClick="spawnWorker"
+        android:nestedScrollingEnabled="false" />
 
     <SeekBar
         android:layout_width="wrap_content"

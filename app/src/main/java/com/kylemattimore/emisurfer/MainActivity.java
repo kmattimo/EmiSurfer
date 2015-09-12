@@ -109,9 +109,9 @@ public class MainActivity extends Activity {
             }
         });
 
-        for (int i = 0; i < 4; ++i) {
-            new PrimeFactorsTask().execute(new BigInteger("32452843"));
-        }
+//        for (int i = 0; i < 4; ++i) {
+//            new PrimeFactorsTask().execute(new BigInteger("32452843"));
+//        }
     }
 
     @Override
@@ -160,6 +160,10 @@ public class MainActivity extends Activity {
             tv_factor.setText(integer.toString());
             tv_factor.invalidate();
         }
+    }
+    public void spawnWorker(View myView) {
+
+        new PrimeFactorsTask().execute(new BigInteger("32452843"));
     }
 }
 
