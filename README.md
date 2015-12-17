@@ -12,4 +12,7 @@ Usage: Hold the phone near the active guitar pickup(s). Manipulate the sounds cr
 Due to hardware differences, every device model sounds different! Phone bodies have different 'hot zones' that emit noise. 
 
 Demo Video: 
+https://www.youtube.com/watch?v=EmabWZc8NY4
+http://devpost.com/software/emisurfer
+
 
